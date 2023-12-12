@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getUsers } from "../api/getUsers";
 import { Link } from 'react-router-dom';
 const Users = () => {
