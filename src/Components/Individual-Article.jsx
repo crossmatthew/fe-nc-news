@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { getOneArticle } from '../api/getArticles';
 import { useEffect, useState } from 'react';
+import Comments from './Comments';
 const IndividualArticle = () => {
     const { article_id } = useParams();
     const [ IsLoading, setIsLoading ] = useState(true)
@@ -19,7 +20,7 @@ const IndividualArticle = () => {
     }
     return (
         <>
-        <article className='each-article'>
+        <article className='container'>
         <p>{AnArticle.topic} {AnArticle.created_at}</p>
         <p>{AnArticle.author}</p>
         <h1>{AnArticle.title}</h1>
@@ -27,6 +28,7 @@ const IndividualArticle = () => {
         <p>{AnArticle.body}</p>
         <p>{AnArticle.votes} Votes {AnArticle.comment_count} Comments</p>
         </article>
+        <Comments props={AnArticle} />
         </>
     )
 };
