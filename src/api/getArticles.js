@@ -6,4 +6,11 @@ const getArticles = () => {
         return res.data.articles
     })
 };
-export default getArticles;
+const getOneArticle = (id) => {
+    return axios
+    .get(`https://nc-news-js3f.onrender.com/api/articles/${id}`)
+    .then((res) => {
+        return res.data.article
+    })
+};
+export { getArticles, getOneArticle }
