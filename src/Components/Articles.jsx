@@ -9,7 +9,7 @@ const Articles = () => {
             setArticles(data)
             setLoading(false)
         })
-    }, [Articles])
+    }, [])
     if (Loading) {
         return <h1>Loading</h1>
     }
