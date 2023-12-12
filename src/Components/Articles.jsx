@@ -1,33 +1,36 @@
 import { useState, useEffect } from "react";
-import getArticles from "../api/getArticles";
+import { getArticles } from "../api/getArticles";
+import { Link } from "react-router-dom";
 const Articles = () => {
     const [ Loading, setLoading ] = useState(true)
     const [ Articles, setArticles ] = useState();
     useEffect(() => {
         getArticles()
-        .then((data) => {
-            setArticles(data)
+        .then((articles) => {
+            setArticles(articles)
             setLoading(false)
         })
-    }, [Articles])
+    }, [])
     if (Loading) {
         return <h1>Loading</h1>
     }
     const articlesMap = Articles.map((article) => {
-        return <li id='each-article' key={article.article_id}>
+        const articleLink = `/${article.article_id}`
+        return <Link to={articleLink}>
+            <li className='each-article' key={article.article_id}>
             <p id='article-topic-date'>{article.topic} {article.created_at}</p>
             <h3 id='article-title'>{article.title}</h3>
-            <img id='article-img' src={article.article_img_url}/>
+            <img className='article-img' src={article.article_img_url}/>
             <p id='article-votes-comments'>{article.votes} Votes {article.comment_count} Comments</p>
-        </li>
+        </li></Link>
     })
     return (
         <>
-        <section>
+        <article>
         <ul>
             {articlesMap}
         </ul>
-        </section>
+        </article>
         </>
     );
 };
