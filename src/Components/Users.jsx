@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getUsers } from "../api/getUsers";
+import { getUsers } from "../API/getUsers";
 import { Link } from 'react-router-dom';
 const Users = () => {
     const [ Users, setUsers ] = useState()

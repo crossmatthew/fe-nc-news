@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { getOneUser } from '../api/getUsers';
+import { getOneUser } from '../API/getUsers';
 import { useEffect, useState } from 'react';
 const IndividualUser = () => {
     const { username } = useParams();
