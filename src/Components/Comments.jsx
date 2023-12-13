@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import getComments from "../api/getComments";
+import AddComment from "./AddComment";
 const Comments = ({ props }) => {
     const { article_id } = props
     const [ Loading, setLoading ] = useState(true)
@@ -11,7 +12,7 @@ const Comments = ({ props }) => {
             setComments(comments)
             setLoading(false)
         })
-    }, [])
+    }, [Comments])
     if (Loading) {
         return <h1>Loading</h1>
     }
@@ -27,6 +28,7 @@ const Comments = ({ props }) => {
         <>
         <section>
             <ul>
+                <li><AddComment id={article_id}/></li>
                 {commentMap}
             </ul>
         </section>
