@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { getOneUser } from '../API/getUsers';
+import { getOneUser } from '../api/getUsers';
 import { useEffect, useState } from 'react';
+import UserSignIn from './UserSignIn';
 const IndividualUser = () => {
     const { username } = useParams();
     const [ IsLoading, setIsLoading ] = useState(true)
@@ -23,6 +24,7 @@ const IndividualUser = () => {
             <img src={User.avatar_url}/>
             <p>{User.username}</p>
             <p>{User.name}</p>
+            <UserSignIn props={User.username}/>
         </section>
         </>
     )

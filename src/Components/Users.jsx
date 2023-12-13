@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { getUsers } from "../API/getUsers";
+import { getUsers } from "../api/getUsers";
 import { Link } from 'react-router-dom';
+import UserSignIn from "./UserSignIn";
 const Users = () => {
     const [ Users, setUsers ] = useState()
     const [ IsLoading, setIsLoading ] = useState(true)
@@ -18,13 +19,16 @@ const Users = () => {
     }
     const userMap = Users.map((user) => {
         const userLink = `/users/${user.username}`
-        return <Link to={userLink}>
+        return <>
                 <li className='container' key={user.username}>
+                    <Link to={userLink}>
                     <img src={user.avatar_url}/>
                     <p>{user.username}</p>
                     <p>{user.name}</p>
-                </li>
             </Link>
+            <UserSignIn props={user.username}/>
+                </li>
+        </>
     })
     return (
         <>
