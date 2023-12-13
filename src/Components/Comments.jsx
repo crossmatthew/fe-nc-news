@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import getComments from "../api/getComments";
 const Comments = ({ props }) => {
     const { article_id } = props
@@ -16,7 +17,8 @@ const Comments = ({ props }) => {
     }
     const commentMap = Comments.map((comment) => {
         return <li className="container" key={comment.comment_id}>
-            <p>{comment.author} {comment.created_at}</p>
+            <Link to={`/users/${comment.author}`}><p>{comment.author}</p></Link>
+            <p>{comment.created_at}</p>
             <p>{comment.body}</p>
             <p>{comment.votes} Votes</p>
         </li>

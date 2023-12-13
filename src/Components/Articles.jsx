@@ -16,13 +16,14 @@ const Articles = () => {
     }
     const articlesMap = Articles.map((article) => {
         const articleLink = `/${article.article_id}`
-        return <Link to={articleLink}>
-            <li className='container' key={article.article_id}>
-            <p id='article-topic-date'>{article.topic} {article.created_at}</p>
-            <h3 id='article-title'>{article.title}</h3>
-            <img className='article-img' src={article.article_img_url}/>
-            <p id='article-votes-comments'>{article.votes} Votes {article.comment_count} Comments</p>
-        </li></Link>
+        return  <li className='container' key={article.article_id}>
+            <Link to={articleLink}>
+                <p id='article-topic-date'>{article.topic} {article.created_at}</p>
+                <h3 id='article-title'>{article.title}</h3>
+                <img src={article.article_img_url}/>
+                <p id='article-votes-comments'>{article.votes} Votes {article.comment_count} Comments</p>
+            </Link>
+            </li>
     })
     return (
         <>
