@@ -12,6 +12,8 @@ const Comments = ({ props }) => {
             setComments(comments)
             setLoading(false)
         })
+        .catch(err => {
+        });
     }, [Comments])
     if (Loading) {
         return <h1>Loading</h1>
