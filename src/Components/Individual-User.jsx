@@ -1,15 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { getOneUser } from '../api/getUsers';
 import { useEffect, useState } from 'react';
+import { useContext } from "react";
+import { UserContext } from "../Contexts/User-Context";
 import UserSignIn from './UserSignIn';
+import LogOut from './LogOut';
 const IndividualUser = () => {
+    const { User } = useContext(UserContext)
     const { username } = useParams();
     const [ IsLoading, setIsLoading ] = useState(true)
-    const [ User, setUser ] = useState();
+    const [ LogUserIn, setLogUserIn ] = useState();
     useEffect(() => {
         getOneUser(username)
         .then((user) => {
-            setUser(user)
+            setLogUserIn(user)
             setIsLoading(false)
         })
     }, [])
@@ -21,10 +25,10 @@ const IndividualUser = () => {
     return (
         <>
         <section className='container'>
-            <img src={User.avatar_url}/>
-            <p>{User.username}</p>
-            <p>{User.name}</p>
-            <UserSignIn props={User.username}/>
+            <img src={LogUserIn.avatar_url}/>
+            <p>{LogUserIn.username}</p>
+            <p>{LogUserIn.name}</p>
+            {LogUserIn.username === User ? <LogOut /> : <UserSignIn props={LogUserIn.username}/>}
         </section>
         </>
     )

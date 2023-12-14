@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import patchArticlesVotes from '../api/patchArticlesVotes';
-
 const handleVote = (symbol, id, setVotes, setErr) => {
     let amount = 0
     const plusOrMinus = symbol === '+' ? amount = 1 : amount = -1

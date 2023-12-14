@@ -18,7 +18,7 @@ const Articles = () => {
         const articleLink = `/${article.article_id}`
         return  <li className='container' key={article.article_id}>
             <Link to={articleLink}>
-                <p id='article-topic-date'>{article.topic} {article.created_at}</p>
+                <p id='article-topic-date'>{article.topic} • {new Date(article.created_at).toDateString()}</p>
                 <h3 id='article-title'>{article.title}</h3>
                 <img src={article.article_img_url}/>
                 <p id='article-votes-comments'>{article.votes} Votes {article.comment_count} Comments</p>

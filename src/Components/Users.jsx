@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { getUsers } from "../api/getUsers";
 import { Link } from 'react-router-dom';
 import UserSignIn from "./UserSignIn";
+import { useContext } from "react";
+import { UserContext } from "../Contexts/User-Context";
+import LogOut from "./LogOut";
 const Users = () => {
+    const { User, setUser } = useContext(UserContext)
     const [ Users, setUsers ] = useState()
     const [ IsLoading, setIsLoading ] = useState(true)
     useEffect(() => {
@@ -17,16 +21,16 @@ const Users = () => {
             <h1>Loading</h1>
         )
     }
-    const userMap = Users.map((user) => {
-        const userLink = `/users/${user.username}`
+    const userMap = Users.map((eachUser) => {
+        const userLink = `/users/${eachUser.username}`
         return <>
-                <li className='container' key={user.username}>
+                <li className='container' key={eachUser.username}>
                     <Link to={userLink}>
-                    <img src={user.avatar_url}/>
-                    <p>{user.username}</p>
-                    <p>{user.name}</p>
+                    <img src={eachUser.avatar_url}/>
+                    <p>{eachUser.username}</p>
+                    <p>{eachUser.name}</p>
             </Link>
-            <UserSignIn props={user.username}/>
+            {eachUser.username === User ? <LogOut /> : <UserSignIn props={eachUser.username}/>}
                 </li>
         </>
     })
