@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { Link } from 'react-router-dom';
+import { UserContext } from "../Contexts/User-Context";
 import getComments from "../api/getComments";
 import AddComment from "./AddComment";
+import DeleteComment from "./DeleteComment";
 const Comments = ({ props }) => {
+    const { User } = useContext(UserContext)
     const { article_id } = props
     const [ Loading, setLoading ] = useState(true)
     const [ Comments, setComments ] = useState();
@@ -24,6 +27,7 @@ const Comments = ({ props }) => {
             <p>{new Date(comment.created_at).toDateString()}</p>
             <p>{comment.body}</p>
             <p>{comment.votes} Votes</p>
+            {User === comment.author ? <DeleteComment id={comment.comment_id}/> : null}
         </li>
     })
     return (
