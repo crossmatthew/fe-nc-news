@@ -19,7 +19,7 @@ const Comments = ({ props }) => {
     const commentMap = Comments.map((comment) => {
         return <li className="container" key={comment.comment_id}>
             <Link to={`/users/${comment.author}`}><p>{comment.author}</p></Link>
-            <p>{comment.created_at}</p>
+            <p>{new Date(comment.created_at).toDateString()}</p>
             <p>{comment.body}</p>
             <p>{comment.votes} Votes</p>
         </li>
