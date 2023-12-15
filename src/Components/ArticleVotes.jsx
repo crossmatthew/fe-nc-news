@@ -1,22 +1,22 @@
 import patchArticlesVotes from '../api/patchArticlesVotes';
-const handleVote = (symbol, id, setVotes, setErr) => {
+const handleVote = (symbol, id, setVotes, setVoteErr) => {
     let amount = 0
     const plusOrMinus = symbol === '+' ? amount = 1 : amount = -1
     setVotes((currVal) => currVal += amount)
-    setErr(null)
+    setVoteErr(null)
     patchArticlesVotes(id, amount).catch((error => {
         setVotes((currentCount) => currentCount += -amount);
-        setErr('Failed. Please Try Again.');
+        setVoteErr('Failed. Please Try Again.');
     }))
     }
-const ArticleVotePlus = ({ articleId, setVotes, setErr }) => {
+const ArticleVotePlus = ({ articleId, setVotes, setVoteErr }) => {
     return (
-        <button onClick={() => handleVote('+', articleId, setVotes, setErr)}>+</button>
+        <button onClick={() => handleVote('+', articleId, setVotes, setVoteErr)}>+</button>
     )
 };
-const ArticleVoteMinus = ({ articleId, setVotes, setErr }) => {
+const ArticleVoteMinus = ({ articleId, setVotes, setVoteErr }) => {
     return (
-        <button onClick={() => handleVote('-', articleId, setVotes, setErr)}>-</button>
+        <button onClick={() => handleVote('-', articleId, setVotes, setVoteErr)}>-</button>
     )
 };
 export { ArticleVotePlus, ArticleVoteMinus };
