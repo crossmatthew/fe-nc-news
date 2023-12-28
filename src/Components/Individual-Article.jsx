@@ -33,7 +33,9 @@ const IndividualArticle = () => {
     return (
         <>
         <article className='container'>
+        <Link to={`/topics/${AnArticle.topic}`}>
         <p>{AnArticle.topic} • {new Date(AnArticle.created_at).toDateString()}</p>
+        </Link>
         <Link to={`/users/${AnArticle.author}`}><p>{AnArticle.author}</p></Link>
         <h1>{AnArticle.title}</h1>
         <img src={AnArticle.article_img_url}/>
