@@ -2,7 +2,7 @@ ul {
     padding: 0%;
     list-style-type: none;
 }
-nav {
+#top-nav {
     border: solid;
     list-style-type: none;
     text-align: center; 
@@ -15,7 +15,7 @@ nav li {
     justify-content: space-between;
     padding: 0% 15% 0% 15%;
 }
-header {
+#top-header {
     margin: 0% 5%;
     display: flex;
     justify-content: space-between;
@@ -34,7 +34,7 @@ header {
     list-style: none;
     margin: 5%;
     border: solid;
-    max-width: 100%;
+    max-width: 90vw;
     max-height: 100%;
     word-wrap: break-word;
 }
