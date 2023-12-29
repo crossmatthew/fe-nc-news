@@ -41,7 +41,7 @@ function TopicArticles() {
         <>
         <article>
         <ul>
-            {articlesMap}
+            {articlesMap.length > 0 ? articlesMap : <p>No Articles to Show. Why not add one?</p>}
         </ul>
         </article>
         </>
