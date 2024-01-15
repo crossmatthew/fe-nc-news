@@ -35,21 +35,25 @@ const Articles = () => {
             </li>
     })
     return (
-        <>
         <article className="container">
         <ul>
-                <select defaultValue="new" onChange={(e) => handleOnChange(e.target.value)}>
-                <option value="new">New</option>
-                <option value="votes">Top</option>
-                <option value="comments">Comments</option>
-                </select>
+                <label>New
+                    <input type="radio" defaultChecked={true} name="radio-button" value="new" onChange={(e) => handleOnChange(e.target.value)}/>
+                    </label>
+                <label>
+                    Top
+                    <input type="radio" name="radio-button" value="votes" onChange={(e) => handleOnChange(e.target.value)}/>
+                    </label>
+                    <label>
+                        Comments
+                <input type="radio" name="radio-button" value="comments" onChange={(e) => handleOnChange(e.target.value)}/>
+                    </label>
                 <button onClick={handleToggle}>
                     {isToggled ? 'Desc' : 'Asc'}
                 </button>
             {articlesMap}
         </ul>
         </article>
-        </>
     );
 };
 export default Articles;
