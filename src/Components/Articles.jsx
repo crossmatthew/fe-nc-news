@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const Articles = () => {
     const [ Loading, setLoading ] = useState(true)
     const [ isToggled, setToggle] = useState(true);
-    const [ isChanged, setChange] = useState(false);
     const [ Articles, setArticles ] = useState();
     useEffect(() => {
         getArticles()
@@ -12,16 +11,15 @@ const Articles = () => {
             setArticles(articles)
             setLoading(false)
         })
-    }, [isChanged])
+    }, [])
     if (Loading) {
         return <h1>Loading</h1>
     }
     const handleToggle = () => {
         setToggle(!isToggled)
     }
-    const handleOnChange = () => {
-        console.log('yes')
-        setChange(!isChanged)
+    const handleOnChange = (e) => {
+        console.log(e)
     }
     const articlesMap = Articles.map((article) => {
         const articleLink = `/${article.article_id}`
@@ -40,7 +38,7 @@ const Articles = () => {
         <>
         <article className="container">
         <ul>
-                <select defaultValue="new" onChange={handleOnChange}>
+                <select defaultValue="new" onChange={(e) => handleOnChange(e.target.value)}>
                 <option value="new">New</option>
                 <option value="votes">Top</option>
                 <option value="comments">Comments</option>
