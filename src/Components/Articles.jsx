@@ -7,7 +7,6 @@ const Articles = () => {
     const [ isToggled, setToggle] = useState('desc');
     const [ radioValue, setRadioValue ] = useState('created_at')
     const [ searchParams, setSearchParams ] = useSearchParams();
-    console.log(searchParams)
     useEffect(() => {
         getArticles()
         .then((articles) => {
