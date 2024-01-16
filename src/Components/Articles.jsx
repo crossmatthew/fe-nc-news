@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { getArticles, getArticlesQuery } from "../api/getArticles";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 const Articles = () => {
     const [ Articles, setArticles ] = useState();
     const [ Loading, setLoading ] = useState(true)
-    const [ isToggled, setToggle] = useState(true);
+    const [ isToggled, setToggle] = useState('desc');
     const [ radioValue, setRadioValue ] = useState('created_at')
+    const [ searchParams, setSearchParams ] = useSearchParams();
+    console.log(searchParams)
     useEffect(() => {
         getArticles()
         .then((articles) => {
@@ -17,19 +19,32 @@ const Articles = () => {
         return <h1>Loading</h1>
     }
     const handleToggle = () => {
-        setToggle(!isToggled)
+        isToggled === 'desc' ? setToggle('asc') : setToggle('desc')
+        setSearchParams({sort_by: radioValue, order: isToggled})
+        if (radioValue === 'created_at') {
+            const articleTimeSort = [...Articles].sort((a, b) => {
+                return isToggled === 'desc' ? new Date(a[radioValue]).getTime() - new Date(b[radioValue]).getTime() : new Date(b[radioValue]).getTime() - new Date(a[radioValue]).getTime()
+            })
+            setArticles(articleTimeSort)
+        } else {
+            const articleSort = [...Articles].sort((a, b) => {
+                return isToggled === 'desc' ? a[radioValue] - b[radioValue] : b[radioValue] - a[radioValue]
+            })
+            setArticles(articleSort)
+        }
     };
     const handleOnChange = (e) => {
         setLoading(true);
         if (isToggled) {
+            setSearchParams({sort_by: radioValue, order: isToggled})
             getArticlesQuery(e, isToggled)
             .then((articles) => {
-                console.log(articles)
                 setArticles(articles)
                 setRadioValue(e);
                 setLoading(false)
             })
         } else {
+            setSearchParams({sort_by: radioValue, order: isToggled})
             getArticlesQuery(e, isToggled)
             .then((articles) => {
                 setArticles(articles)
@@ -66,7 +81,7 @@ const Articles = () => {
                 <input type="radio" defaultChecked={radioValue === 'comment_count'} name="radio-button" value="comment_count" onChange={(e) => handleOnChange(e.target.value)}/>
                     </label>
                 <button onClick={handleToggle}>
-                    {isToggled ? 'Desc' : 'Asc'}
+                    {isToggled === 'desc' ? 'Descending' : 'Ascending'}
                 </button>
             {articlesMap}
         </ul>
