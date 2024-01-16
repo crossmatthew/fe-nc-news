@@ -11,7 +11,7 @@ NC News has articles which are divided into topics, and each article has user-cu
 The API for this project is available <a href="https://github.com/crossmatthew/nc-news">at this repo.</a>
 
 > [!NOTE]
-> Please note that the API for this project is hosted for free on Render and is spun-down after 15 minutes of inactivity, therefore content loading may take longer than expected.
+> The API for this project is hosted for free on Render and is spun-down after 15 minutes of inactivity, therefore content loading may take longer than expected.
 
 ## Getting Started
 Follow these instructions to get a local copy up-and-running.
