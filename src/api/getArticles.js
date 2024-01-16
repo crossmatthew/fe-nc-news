@@ -39,7 +39,6 @@ const getOneArticle = (id) => {
     })
 };
 const getArticlesQuery = (query, order) => {
-    order ? order = 'desc' : order = 'asc'
     return axios
     .get(`https://nc-news-js3f.onrender.com/api/articles?sort_by=${query}&order=${order}`)
     .then((res) => {
