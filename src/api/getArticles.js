@@ -1,18 +1,5 @@
-import axios, { AxiosError } from 'axios';
-const getArticles = (topicQuery) => {
-    if (topicQuery) {
-        return axios
-        .get(`https://nc-news-js3f.onrender.com/api/articles?topic=${topicQuery}`)
-        .then((res) => {
-            if (res.status !== 200) {
-                return Promise.reject({ status:res.status, message: res.statusText })
-            }
-            return res.data.articles
-        })
-        .catch((err) => {
-            return Promise.reject({status: err.response.status, msg: err.response.data.msg})
-        })
-    }
+import axios from 'axios';
+const getArticles = () => {
     return axios
     .get('https://nc-news-js3f.onrender.com/api/articles')
     .then((res) => {
@@ -24,6 +11,19 @@ const getArticles = (topicQuery) => {
     .catch((err) => {
         return Promise.reject({status: err.response.status, msg: err.response.data.msg})
     })
+};
+const getArticlesByTopic = (query) => {
+    return axios
+        .get(`https://nc-news-js3f.onrender.com/api/articles?topic=${query}`)
+        .then((res) => {
+            if (res.status !== 200) {
+                return Promise.reject({ status:res.status, message: res.statusText })
+            }
+            return res.data.articles
+        })
+        .catch((err) => {
+            return Promise.reject({status: err.response.status, msg: err.response.data.msg})
+        })
 };
 const getOneArticle = (id) => {
     return axios
@@ -38,4 +38,4 @@ const getOneArticle = (id) => {
         return Promise.reject({status: err.response.status, msg: err.response.data.msg})
     })
 };
-export { getArticles, getOneArticle }
+export { getArticles, getOneArticle, getArticlesByTopic }
