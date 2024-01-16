@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import { getArticles } from '../api/getArticles';
+import { getArticlesByTopic } from '../api/getArticles';
 import { Link } from "react-router-dom";
 import ErrorHandler from "./ErrorHandler";
 function TopicArticles() {
@@ -9,7 +9,7 @@ function TopicArticles() {
     const [ Loading, setLoading ] = useState(true)
     const [ Articles, setArticles ] = useState();
     useEffect(() => {
-        getArticles(topic)
+        getArticlesByTopic(topic)
         .then((articles) => {
             setArticles(articles)
             setLoading(false)
