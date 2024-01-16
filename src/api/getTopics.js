@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 const getTopics = () => {
     return axios
     .get('https://nc-news-js3f.onrender.com/api/topics')
