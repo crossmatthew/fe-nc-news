@@ -10,7 +10,8 @@ NC News has articles which are divided into topics, and each article has user-cu
 
 The API for this project is available <a href="https://github.com/crossmatthew/nc-news">at this repo.</a>
 
-Please note that the API for this project is hosted for free on Render and is spun-down after 15 minutes of inactivity, therefore content loading may take longer than expected.
+> [!NOTE]
+> Please note that the API for this project is hosted for free on Render and is spun-down after 15 minutes of inactivity, therefore content loading may take longer than expected.
 
 ## Getting Started
 Follow these instructions to get a local copy up-and-running.
@@ -63,9 +64,9 @@ The API can now be interacted with on localhost using a client.
 I still remaining functionality to implement on this project:
 <ol>
   <li>Sorting and Ordering:</li>
-  <ul><li>~~To allow articles to be sorted by columns and in an order as a user sees fit~~ That aspect is complete, I have also used SearchParams to modify the URL, although that is purely cosmetic. I want to adjust that so you can query via the URL and get the correct results</li></ul>
+  <ul><li> - [X] To allow articles to be sorted by columns and in an order as a user sees fit That aspect is complete, I have also used SearchParams to modify the URL, although that is purely cosmetic.</li><li> - [ ] I want to adjust that so you can query via the URL and get the correct results</li></ul>
   <li>Styling</li>
-  <ul><li>Content displays, but in a very rough format to simply make it visible on screen. I want to makke use of vanilla CSS and flex</li></ul>
+  <ul><li>Content displays, but in a very rough format to simply make it visible on screen. I want to make use of vanilla CSS and flex</li></ul>
   <li>Accessibility</li>
   <ul><li>Once I have completed the functionality and styling, I want to look at my code and make sure the site can meet at least a basic level of accessibility,
     For example: HTML being semantic, existence of image alt text, making sure a user can navigate using only a keyboard, etc.</li></ul>
