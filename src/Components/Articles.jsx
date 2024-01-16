@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { getArticles } from "../api/getArticles";
+import { getArticles, getArticlesQuery } from "../api/getArticles";
 import { Link } from "react-router-dom";
 const Articles = () => {
+    const [ Articles, setArticles ] = useState();
     const [ Loading, setLoading ] = useState(true)
     const [ isToggled, setToggle] = useState(true);
-    const [ Articles, setArticles ] = useState();
+    const [ radioValue, setRadioValue ] = useState('created_at')
     useEffect(() => {
         getArticles()
         .then((articles) => {
@@ -17,10 +18,26 @@ const Articles = () => {
     }
     const handleToggle = () => {
         setToggle(!isToggled)
-    }
+    };
     const handleOnChange = (e) => {
-        console.log(e)
-    }
+        setLoading(true);
+        if (isToggled) {
+            getArticlesQuery(e, isToggled)
+            .then((articles) => {
+                console.log(articles)
+                setArticles(articles)
+                setRadioValue(e);
+                setLoading(false)
+            })
+        } else {
+            getArticlesQuery(e, isToggled)
+            .then((articles) => {
+                setArticles(articles)
+                setRadioValue(e);
+                setLoading(false) 
+            })
+        }
+    };
     const articlesMap = Articles.map((article) => {
         const articleLink = `/${article.article_id}`
         return  <li className='container' key={article.article_id}>
@@ -38,15 +55,15 @@ const Articles = () => {
         <article className="container">
         <ul>
                 <label>New
-                    <input type="radio" defaultChecked={true} name="radio-button" value="new" onChange={(e) => handleOnChange(e.target.value)}/>
+                    <input type="radio" defaultChecked={radioValue === 'created_at'} name="radio-button" value="created_at" onChange={(e) => handleOnChange(e.target.value)}/>
                     </label>
                 <label>
                     Top
-                    <input type="radio" name="radio-button" value="votes" onChange={(e) => handleOnChange(e.target.value)}/>
+                    <input type="radio" defaultChecked={radioValue === 'votes'} name="radio-button" value="votes" onChange={(e) => handleOnChange(e.target.value)}/>
                     </label>
                     <label>
                         Comments
-                <input type="radio" name="radio-button" value="comments" onChange={(e) => handleOnChange(e.target.value)}/>
+                <input type="radio" defaultChecked={radioValue === 'comment_count'} name="radio-button" value="comment_count" onChange={(e) => handleOnChange(e.target.value)}/>
                     </label>
                 <button onClick={handleToggle}>
                     {isToggled ? 'Desc' : 'Asc'}
