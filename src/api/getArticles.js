@@ -12,9 +12,9 @@ const getArticles = () => {
         return Promise.reject({status: err.response.status, msg: err.response.data.msg})
     })
 };
-const getArticlesByTopic = (query) => {
+const getArticlesByTopic = (topic) => {
     return axios
-        .get(`https://nc-news-js3f.onrender.com/api/articles?topic=${query}`)
+        .get(`https://nc-news-js3f.onrender.com/api/articles?topic=${topic}`)
         .then((res) => {
             if (res.status !== 200) {
                 return Promise.reject({ status:res.status, message: res.statusText })
@@ -38,4 +38,17 @@ const getOneArticle = (id) => {
         return Promise.reject({status: err.response.status, msg: err.response.data.msg})
     })
 };
-export { getArticles, getOneArticle, getArticlesByTopic }
+const getArticlesQuery = (query, order) => {
+    return axios
+    .get(`https://nc-news-js3f.onrender.com/api/articles?sort_by=${query}&order=${order}`)
+    .then((res) => {
+        if (res.status !== 200) {
+            return Promise.reject({ status:res.status, message: res.statusText })
+        }
+        return res.data.article
+    })
+    .catch((err) => {
+        return Promise.reject({status: err.response.status, msg: err.response.data.msg})
+    })
+};
+export { getArticles, getOneArticle, getArticlesByTopic, getArticlesQuery }
