@@ -63,7 +63,7 @@ The API can now be interacted with on localhost using a client.
 I still remaining functionality to implement on this project:
 <ol>
   <li>Sorting and Ordering:</li>
-  <ul><li>To allow articles to be sorted by columns and in an order as a user sees fit</li></ul>
+  <ul><li>~~To allow articles to be sorted by columns and in an order as a user sees fit~~ That aspect is complete, I have also used SearchParams to modify the URL, although that is purely cosmetic. I want to adjust that so you can query via the URL and get the correct results</li></ul>
   <li>Styling</li>
   <ul><li>Content displays, but in a very rough format to simply make it visible on screen. I want to makke use of vanilla CSS and flex</li></ul>
   <li>Accessibility</li>
