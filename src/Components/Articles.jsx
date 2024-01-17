@@ -8,9 +8,9 @@ const Articles = () => {
     const [ radioValue, setRadioValue ] = useState('created_at')
     const [ searchParams, setSearchParams ] = useSearchParams();
     useEffect(() => {
-        if (searchParams.get('sort_by')) {
+        if (searchParams.get('sort_by') && searchParams.get('sort_by').toLowerCase() === 'votes' || searchParams.get('sort_by') && searchParams.get('sort_by').toLowerCase() === 'created_at' || searchParams.get('sort_by') &&  searchParams.get('sort_by').toLowerCase() === 'comment_count') {
             setRadioValue(searchParams.get('sort_by'))
-            if (searchParams.get('order')) {
+            if (searchParams.get('order') && searchParams.get('order').toLowerCase() === 'asc' || searchParams.get('order') && searchParams.get('order').toLowerCase() === 'desc') {
                 setToggle(searchParams.get('order'))
                 getArticlesQuery(searchParams.get('sort_by'), searchParams.get('order'))
                 .then((articles) => {
@@ -39,8 +39,9 @@ const Articles = () => {
         return <h1>Loading</h1>
     }
     const handleToggle = () => {
-        isToggled === 'desc' ? setToggle('asc') : setToggle('desc')
-        setSearchParams({sort_by: radioValue, order: isToggled})
+        const newToggle = isToggled === 'desc' ? 'asc' : 'desc'
+        setToggle(newToggle)
+        setSearchParams({sort_by: radioValue, order: newToggle})
         if (radioValue === 'created_at') {
             const articleTimeSort = [...Articles].sort((a, b) => {
                 return isToggled === 'desc' ? new Date(a[radioValue]).getTime() - new Date(b[radioValue]).getTime() : new Date(b[radioValue]).getTime() - new Date(a[radioValue]).getTime()
@@ -56,7 +57,7 @@ const Articles = () => {
     const handleOnChange = (e) => {
         setLoading(true);
         if (isToggled) {
-            setSearchParams({sort_by: radioValue, order: isToggled})
+            setSearchParams({sort_by: e, order: isToggled})
             getArticlesQuery(e, isToggled)
             .then((articles) => {
                 setArticles(articles)
