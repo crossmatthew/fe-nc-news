@@ -8,11 +8,32 @@ const Articles = () => {
     const [ radioValue, setRadioValue ] = useState('created_at')
     const [ searchParams, setSearchParams ] = useSearchParams();
     useEffect(() => {
-        getArticles()
-        .then((articles) => {
-            setArticles(articles)
-            setLoading(false)
-        })
+        if (searchParams.get('sort_by')) {
+            setRadioValue(searchParams.get('sort_by'))
+            if (searchParams.get('order')) {
+                setToggle(searchParams.get('order'))
+                getArticlesQuery(searchParams.get('sort_by'), searchParams.get('order'))
+                .then((articles) => {
+                    setSearchParams({sort_by: radioValue, order: isToggled});
+                    setArticles(articles)
+                    setLoading(false)
+                })
+            } else {
+                getArticlesQuery(searchParams.get('sort_by'), isToggled)
+                .then((articles) => {
+                    setSearchParams({sort_by: radioValue, order: isToggled});
+                    setArticles(articles)
+                    setLoading(false)
+                })
+            }
+        } else {
+            getArticles()
+            .then((articles) => {
+                setSearchParams({sort_by: radioValue, order: isToggled});
+                setArticles(articles)
+                setLoading(false)
+            })
+        }
     }, [])
     if (Loading) {
         return <h1>Loading</h1>
