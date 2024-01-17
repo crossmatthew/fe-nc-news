@@ -65,7 +65,7 @@ I still remaining functionality to implement on this project:
 <ol>
   <li>Sorting and Ordering:</li>
   <ul>
-           <li> - [X] To allow articles to be sorted by columns and in an order as a user sees fit</li>
+           <li> - [X] To allow articles to be sorted by votes, comments or created date, as a user sees fit</li>
            <li> - [X] I have used SearchParams to modify the URL, although that is purely cosmetic. I want to adjust that so you can query via the URL and get the correct results</li>
            <li> - [ ] Pagination, the GET articles SQL query as a LIMIT of 10. I need to add pagination to allow users to see the full results. I think I will use infinite scrolling for this</li>
   </ul>
