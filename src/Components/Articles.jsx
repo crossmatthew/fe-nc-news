@@ -5,12 +5,14 @@ const Articles = () => {
     const [ Articles, setArticles ] = useState();
     const [ Loading, setLoading ] = useState(true)
     const [ isToggled, setToggle] = useState('desc');
+    const [ fixedOrder, setFixedOrder ] = useState();
     const [ radioValue, setRadioValue ] = useState('created_at')
     const [ searchParams, setSearchParams ] = useSearchParams();
     useEffect(() => {
         if (searchParams.get('sort_by') && searchParams.get('sort_by').toLowerCase() === 'votes' || searchParams.get('sort_by') && searchParams.get('sort_by').toLowerCase() === 'created_at' || searchParams.get('sort_by') &&  searchParams.get('sort_by').toLowerCase() === 'comment_count') {
             setRadioValue(searchParams.get('sort_by'))
             if (searchParams.get('order') && searchParams.get('order').toLowerCase() === 'asc' || searchParams.get('order') && searchParams.get('order').toLowerCase() === 'desc') {
+                setFixedOrder(searchParams.get('order'))
                 setToggle(searchParams.get('order'))
                 getArticlesQuery(searchParams.get('sort_by'), searchParams.get('order'))
                 .then((articles) => {
@@ -27,6 +29,7 @@ const Articles = () => {
                 })
             }
         } else {
+            setFixedOrder(isToggled)
             getArticles()
             .then((articles) => {
                 setSearchParams({sort_by: radioValue, order: isToggled});
@@ -56,6 +59,7 @@ const Articles = () => {
     };
     const handleOnChange = (e) => {
         setLoading(true);
+        setFixedOrder(isToggled)
         if (isToggled) {
             setSearchParams({sort_by: e, order: isToggled})
             getArticlesQuery(e, isToggled)
@@ -73,10 +77,11 @@ const Articles = () => {
                 setLoading(false) 
             })
         }
-    };
+    };         
     const articlesMap = Articles.map((article) => {
         const articleLink = `/${article.article_id}`
         return  <li className='container' key={article.article_id}>
+            <p hidden>{article.total_count}</p>
             <Link to={`/topics/${article.topic}`}>
                 <p id='article-topic-date'>{article.topic} • {new Date(article.created_at).toDateString()}</p>
             </Link>
@@ -87,26 +92,57 @@ const Articles = () => {
             </Link>
             </li>
     })
+    const handlePagination = () => {
+        const totalArticleCount = articlesMap[0].props.children[0].props.children;
+    }
     return (
-        <article className="container">
+      <article className="container">
         <ul>
-                <label>New
-                    <input type="radio" defaultChecked={radioValue === 'created_at'} name="radio-button" value="created_at" onChange={(e) => handleOnChange(e.target.value)}/>
-                    </label>
-                <label>
-                    Top
-                    <input type="radio" defaultChecked={radioValue === 'votes'} name="radio-button" value="votes" onChange={(e) => handleOnChange(e.target.value)}/>
-                    </label>
-                    <label>
-                        Comments
-                <input type="radio" defaultChecked={radioValue === 'comment_count'} name="radio-button" value="comment_count" onChange={(e) => handleOnChange(e.target.value)}/>
-                    </label>
-                <button onClick={handleToggle}>
-                    {isToggled === 'desc' ? 'Descending' : 'Ascending'}
-                </button>
-            {articlesMap}
+          <label>
+            New
+            <input
+              type="radio"
+              defaultChecked={radioValue === "created_at"}
+              name="radio-button"
+              value="created_at"
+              onChange={(e) => handleOnChange(e.target.value)}
+            />
+          </label>
+          <label>
+            Top
+            <input
+              type="radio"
+              defaultChecked={radioValue === "votes"}
+              name="radio-button"
+              value="votes"
+              onChange={(e) => handleOnChange(e.target.value)}
+            />
+          </label>
+          <label>
+            Comments
+            <input
+              type="radio"
+              defaultChecked={radioValue === "comment_count"}
+              name="radio-button"
+              value="comment_count"
+              onChange={(e) => handleOnChange(e.target.value)}
+            />
+          </label>
+          <button onClick={handleToggle}>
+            {isToggled === "desc" ? "Descending" : "Ascending"}
+          </button>
+          <label>
+            Limit
+            <select name="articlesLimit" defaultValue={searchParams.get('limit') ? searchParams.get('limit') : 10}>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={articlesMap[0].props.children[0].props.children}>All ({articlesMap[0].props.children[0].props.children})</option>
+            </select>
+          </label>
+          {articlesMap}
         </ul>
-        </article>
+      </article>
     );
 };
 export default Articles;
