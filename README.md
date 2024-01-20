@@ -68,6 +68,7 @@ I still remaining functionality to implement on this project:
            <li> - [X] To allow articles to be sorted by votes, comments or created date, as a user sees fit</li>
            <li> - [X] I have used SearchParams to modify the URL, although that is purely cosmetic. I want to adjust that so you can query via the URL and get the correct results</li>
            <li> - [ ] Pagination, the GET articles SQL query as a LIMIT of 10. I need to add pagination to allow users to see the full results. I think I will use infinite scrolling for this</li>
+           <li> - [ ] Make code a lot more DRY</li>
   </ul>
   <li>Styling</li>
   <ul><li> - [ ] Content displays, but in a very rough format to simply make it visible on screen. I want to make use of vanilla CSS and flex</li></ul>
