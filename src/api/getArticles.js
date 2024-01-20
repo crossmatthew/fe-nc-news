@@ -12,9 +12,9 @@ const getArticles = () => {
         return Promise.reject({status: err.response.status, msg: err.response.data.msg})
     })
 };
-const getArticlesByTopic = (topic) => {
+const getArticlesByTopic = (topic, sortBy, order) => {
     return axios
-        .get(`https://nc-news-js3f.onrender.com/api/articles?topic=${topic}`)
+        .get(`https://nc-news-js3f.onrender.com/api/articles?topic=${topic}&sort_by=${sortBy}&order=${order}`)
         .then((res) => {
             if (res.status !== 200) {
                 return Promise.reject({ status:res.status, message: res.statusText })
@@ -38,9 +38,9 @@ const getOneArticle = (id) => {
         return Promise.reject({status: err.response.status, msg: err.response.data.msg})
     })
 };
-const getArticlesQuery = (query, order) => {
+const getArticlesQuery = (query, order, limit) => {
     return axios
-    .get(`https://nc-news-js3f.onrender.com/api/articles?sort_by=${query}&order=${order}`)
+    .get(`https://nc-news-js3f.onrender.com/api/articles?sort_by=${query}&order=${order}&limit=${limit}`)
     .then((res) => {
         if (res.status !== 200) {
             return Promise.reject({ status:res.status, message: res.statusText })
@@ -51,4 +51,17 @@ const getArticlesQuery = (query, order) => {
         return Promise.reject({status: err.response.status, msg: err.response.data.msg})
     })
 };
-export { getArticles, getOneArticle, getArticlesByTopic, getArticlesQuery }
+const getArticlesByPage = (query, order, page, limit) => {
+    return axios
+    .get(`https://nc-news-js3f.onrender.com/api/articles?sort_by=${query}&order=${order}&p=${page}&limit=${limit}`)
+      .then((res) => {
+                if (res.status !== 200) {
+            return Promise.reject({ status:res.status, message: res.statusText })
+        }
+        return res.data.articles
+    })
+    .catch((err) => {
+        return Promise.reject({status: err.response.status, msg: err.response.data.msg})
+    })
+};
+export { getArticles, getOneArticle, getArticlesByTopic, getArticlesQuery, getArticlesByPage }
