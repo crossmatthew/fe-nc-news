@@ -100,17 +100,25 @@ const Articles = () => {
             </Link>
             </li>
     })
-    const handlePagination = () => {
-        getArticlesByPage(radioValue, fixedOrder, 1, Limit)
+    const handlePagination = (e) => {
+          setSearchParams({
+            sort_by: radioValue,
+            order: isToggled,
+            p: e,
+            limit: Limit,
+          });
+      console.log(e)
+      if (e > 0) { setPage(e) }
+        getArticlesByPage(radioValue, fixedOrder, e, Limit)
         .then((articles) => {
           setTotalCount(articles[0].total_count);
           setArticles(articles)
 
           /*  first page of results is 0
-          total_count / limit = Math.ceil(pages)
+          total_count / limit = Math.floor(pages)
           eg 37 / 10 = (3.7) 4 pages
-          so I need to render 4 buttons...
-              limit 10, 20, whatever
+          so I need to render 4 buttons if limit is 10...
+              limit 5,20, whatever
               previous page = only renders if current page is > 0, and is current page - 1
               next page
               current page =
@@ -119,12 +127,12 @@ const Articles = () => {
     }
     const handleLimit = (e) => {
       setLimit(e.target.value)
-                    setSearchParams({
-                      sort_by: radioValue,
-                      order: isToggled,
-                      limit: e.target.value,
-                    });
-        getArticlesByPage(radioValue, fixedOrder, 0, e.target.value)
+      setSearchParams({
+        sort_by: radioValue,
+        order: isToggled,
+        limit: e.target.value,
+      });
+      getArticlesByPage(radioValue, fixedOrder, 0, e.target.value)
       .then((articles) => {
         setArticles(articles)
         setTotalCount(articles[0].total_count)
@@ -177,14 +185,32 @@ const Articles = () => {
               }
             >
               <option value={5}>5</option>
-              <option hidden={TotalCount < 10} value={10}>10</option>
-              <option hidden={TotalCount < 20} value={20}>20</option>
+              <option hidden={TotalCount < 10} value={10}>
+                10
+              </option>
+              <option hidden={TotalCount < 20} value={20}>
+                20
+              </option>
               <option value={TotalCount}>{TotalCount} (All)</option>
             </select>
           </label>
-          <button>Prev</button>
-          <button>1</button>
-          <button onClick={handlePagination}>2</button>
+
+          <button
+            hidden={Page === 0}
+            value={Page - 1}
+            onClick={(e) => handlePagination(e.target.value)}
+          >
+            Prev
+            {console.log(Page)}
+          </button>
+
+          <button
+            hidden={Math.ceil(TotalCount / Limit) === 1}
+            value={Math.floor(TotalCount / Limit)}
+            onClick={(e) => handlePagination(e.target.value)}
+          >
+            {Math.ceil(TotalCount / Limit)} (Last)
+          </button>
           {articlesMap}
         </ul>
       </article>
