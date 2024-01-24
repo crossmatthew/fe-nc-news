@@ -61,7 +61,7 @@ The API can now be interacted with on localhost using a client.
 
 ## TO-DOs
 
-I still remaining functionality to implement on this project:
+I still have remaining functionality to implement on this project:
 <ol>
   <li>Sorting and Ordering:</li>
   <ul>
